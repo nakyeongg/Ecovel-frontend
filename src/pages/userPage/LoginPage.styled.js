@@ -38,6 +38,6 @@ export const Input = styled.input`
     theme.fonts.PretendardRegular["font-family"]};
 
     &::placeholder {
-        color: rgba(0, 0, 0, 0.5);
+        color: #7F7F7F;
     }
 `

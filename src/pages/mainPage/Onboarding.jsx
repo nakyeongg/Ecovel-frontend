@@ -1,6 +1,6 @@
 import React from 'react';
 import * as S from './Onboarding.styled';
-import Layout from '../../layout/Layout';
+import { Layout } from '../../layout/Layout';
 import logo from '../../assets/images/logo.png'
 
 const Onboarding = () => {

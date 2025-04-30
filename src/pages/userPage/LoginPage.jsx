@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import * as S from './LoginPage.styled';
-import Layout from '../../layout/Layout';
+import { Layout } from '../../layout/Layout';
 import { GreenButton } from '../../components/GreenButton';
 import { GreyButton } from '../../components/GreyButton';
 import miniLogo from '../../assets/images/miniLogo.png';
