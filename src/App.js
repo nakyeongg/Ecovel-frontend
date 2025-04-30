@@ -1,16 +1,17 @@
-import React from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Layout from './layout/Layout'
-import Main from './pages/mainPage/MainPage'
+import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Onboarding from './pages/mainPage/Onboarding';
+import LoginPage from './pages/userPage/LoginPage';
+import Main from './pages/mainPage/MainPage';
 
 const App = () => {
     return (
         <BrowserRouter>
-            <Layout>
                 <Routes>
-                    <Route path='/' element={<Main />} />
+                    <Route path='/' element={<Onboarding />} />
+                    <Route path='/login' element={<LoginPage />} />
+                    <Route path='/main' element={<Main />} />
                 </Routes>
-            </Layout>
         </BrowserRouter>
     )
 }
