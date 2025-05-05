@@ -4,7 +4,10 @@ import Onboarding from './pages/mainPage/Onboarding';
 import LoginPage from './pages/userPage/LoginPage';
 import SignupPage from './pages/userPage/SignupPage';
 import WelcomePage from './pages/userPage/WelcomPage';
-import Main from './pages/mainPage/MainPage';
+import MainPage from './pages/mainPage/MainPage';
+import RegionOptionPage from './pages/travelPage/RegionOptionPage';
+import DistrictOptionPage from './pages/travelPage/DistrictOptionPage';
+import TravelStyleOptionPage from './pages/travelPage/TravelStyleOptionPage';
 
 const App = () => {
     return (
@@ -14,7 +17,10 @@ const App = () => {
                     <Route path='/login' element={<LoginPage />} />
                     <Route path='/signup' element={<SignupPage />} />
                     <Route path='/signup/success' element={<WelcomePage />} />
-                    <Route path='/main' element={<Main />} />
+                    <Route path='/main' element={<MainPage />} />
+                    <Route path='/travel/region' element={<RegionOptionPage />} />
+                    <Route path='/travel/district' element={<DistrictOptionPage />} />
+                    <Route path='/travel/style' element={<TravelStyleOptionPage />} />
                 </Routes>
         </BrowserRouter>
     )

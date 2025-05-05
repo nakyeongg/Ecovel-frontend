@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export const GreenButton = ({ text, disabled }) => {
+export const GreenButton = ({ text, disabled, onClick }) => {
     return (
-        <Wrapper disabled={disabled}>
+        <Wrapper disabled={disabled} onClick={onClick}>
             {text}
         </Wrapper>
     )
