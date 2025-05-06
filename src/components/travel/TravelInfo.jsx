@@ -1,27 +1,26 @@
 import React from 'react';
 import styled from "styled-components";
 
-export const TravelInfo = ({ icon, title, hashtag1, hashtag2, hashtag3, hashtag4, image }) => {
+export const TravelInfo = ({ icon, title, hashtag1, hashtag2, hashtag3, hashtag4, image, scheduled=false }) => {
     return (
         <Wrapper>
             <Left>
                 <TitleWrapper>
                     <Icon src={icon}/>
                     <Title>{title}</Title>
+                    {scheduled && <StartButton>start</StartButton>}
                 </TitleWrapper>
                 <HashtagsWrapper>
                     <Hashtag>#{hashtag1}</Hashtag>
                     <Hashtag>#{hashtag2}</Hashtag>
                     <Hashtag>#{hashtag3}</Hashtag>
-                    <Hashtag>#{hashtag4}</Hashtag>
+                    {hashtag4 && (<Hashtag>#{hashtag4}</Hashtag>)}
                 </HashtagsWrapper>
             </Left>
             <Image src={image}/>
         </Wrapper>
     )
 }
-
-
 
 export const Wrapper = styled.div`
     border-radius: 15px;
@@ -58,9 +57,25 @@ export const Title = styled.h2`
     theme.fonts.PretendardSemiBold["font-family"]};
 `
 
+export const StartButton = styled.button`
+    background-color: #2DCF73;
+    color: #F5F5F5;
+    font-family: ${({ theme }) =>
+    theme.fonts.PretendardMedium["font-family"]};
+    height: 30px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    border-radius: 8px;
+    font-size: 18px;
+    margin-left: 10px;
+`
+
 export const HashtagsWrapper = styled.div`
     display: flex;
     gap: 5px;
+    flex-wrap: wrap;
+    margin-right: 5px;
 `
 
 export const Hashtag = styled.p`
@@ -72,4 +87,5 @@ export const Image = styled.img`
     width: 70px;
     height: 70px;
     object-fit: cover;
+    margin: auto 0;
 `

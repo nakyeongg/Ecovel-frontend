@@ -26,7 +26,7 @@ const MainPage = () => {
                         <S.Title>Report</S.Title>
                         <S.SmallIcon src={report} />
                     </S.SmallButton>
-                    <S.SmallButton to='/'>
+                    <S.SmallButton to='/mission/list'>
                         <S.Title>Mission</S.Title>
                         <S.SmallIcon src={mission} />
                     </S.SmallButton>
