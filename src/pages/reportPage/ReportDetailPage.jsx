@@ -6,6 +6,7 @@ import CarbonLineChart from '../../components/report/CarbonLineChart';
 import magnifier from '../../assets/icons/report/magnifier.png';
 import tree from '../../assets/icons/report/tree.png';
 import treeLight from '../../assets/icons/report/treeLight.png';
+import { Link } from 'react-router-dom';
 
 const ReportDetailPage = () => {
     const [ecoScore, setEcoScore] = useState(6);
@@ -27,7 +28,9 @@ const ReportDetailPage = () => {
             <S.Title>Carbon Footprint</S.Title>
             <S.RowWrapper>
                 <S.Title>Reduction</S.Title>
-                <S.Magnifier src={magnifier}/>
+                <Link to='/report/info'>
+                    <S.Magnifier src={magnifier}/>
+                </Link>
             </S.RowWrapper>
             <S.UnitWrapper>
                 <S.ReducedCarbon>8</S.ReducedCarbon>

@@ -11,6 +11,7 @@ import TravelStyleOptionPage from './pages/travelPage/TravelStyleOptionPage';
 import TravelDetailPage from './pages/travelPage/TravelDetailPage';
 import ReportListPage from './pages/reportPage/ReportListPage';
 import ReportDetailPage from './pages/reportPage/ReportDetailPage';
+import ReportInfoPage from './pages/reportPage/ReportInfoPage';
 
 const App = () => {
     return (
@@ -27,6 +28,7 @@ const App = () => {
                     <Route path='/travel/detail' element={<TravelDetailPage />} />
                     <Route path='/report/list' element={<ReportListPage />} />
                     <Route path='/report/detail' element={<ReportDetailPage />} />
+                    <Route path='/report/info' element={<ReportInfoPage />} />
                 </Routes>
         </BrowserRouter>
     )
