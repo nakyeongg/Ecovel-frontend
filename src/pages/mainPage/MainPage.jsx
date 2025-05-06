@@ -17,12 +17,12 @@ const MainPage = () => {
             <GrowthLog />
             <Quiz/>
             <S.ButtonWrapper>
-                <S.LargeButton to='/'>
+                <S.LargeButton to='/travel/region'>
                     <S.Title>Travel</S.Title>
                     <S.LargeIcon src={travel} />
                 </S.LargeButton>        
                 <S.ColumnWrapper>
-                    <S.SmallButton to='/'>
+                    <S.SmallButton to='/report/list'>
                         <S.Title>Report</S.Title>
                         <S.SmallIcon src={report} />
                     </S.SmallButton>

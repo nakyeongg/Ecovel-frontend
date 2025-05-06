@@ -9,6 +9,7 @@ import RegionOptionPage from './pages/travelPage/RegionOptionPage';
 import DistrictOptionPage from './pages/travelPage/DistrictOptionPage';
 import TravelStyleOptionPage from './pages/travelPage/TravelStyleOptionPage';
 import TravelDetailPage from './pages/travelPage/TravelDetailPage';
+import ReportListPage from './pages/reportPage/ReportListPage';
 
 const App = () => {
     return (
@@ -23,6 +24,7 @@ const App = () => {
                     <Route path='/travel/district' element={<DistrictOptionPage />} />
                     <Route path='/travel/style' element={<TravelStyleOptionPage />} />
                     <Route path='/travel/detail' element={<TravelDetailPage />} />
+                    <Route path='/report/list' element={<ReportListPage />} />
                 </Routes>
         </BrowserRouter>
     )
