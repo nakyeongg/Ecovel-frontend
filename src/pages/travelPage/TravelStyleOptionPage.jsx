@@ -20,7 +20,7 @@ const TravelStyleOptionPage = () => {
     
 
     const handleButton = () => {
-        navigate('/');
+        navigate('/travel/detail');
     }
     
     useEffect(() => {

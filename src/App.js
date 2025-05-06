@@ -8,6 +8,7 @@ import MainPage from './pages/mainPage/MainPage';
 import RegionOptionPage from './pages/travelPage/RegionOptionPage';
 import DistrictOptionPage from './pages/travelPage/DistrictOptionPage';
 import TravelStyleOptionPage from './pages/travelPage/TravelStyleOptionPage';
+import TravelDetailPage from './pages/travelPage/TravelDetailPage';
 
 const App = () => {
     return (
@@ -21,6 +22,7 @@ const App = () => {
                     <Route path='/travel/region' element={<RegionOptionPage />} />
                     <Route path='/travel/district' element={<DistrictOptionPage />} />
                     <Route path='/travel/style' element={<TravelStyleOptionPage />} />
+                    <Route path='/travel/detail' element={<TravelDetailPage />} />
                 </Routes>
         </BrowserRouter>
     )
