@@ -14,7 +14,7 @@ export const Footer = () => {
             <Link to='/'>
                 <Icon src={like} />
             </Link>
-            <Link to='/'>
+            <Link to='/mypage'>
                 <Icon src={user} />
             </Link>
         </Wrapper>

@@ -1,11 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import logo from '../../assets/images/logo.png';
+import { Link } from 'react-router-dom';
 
 export const Header = () => {
     return (
 		<Wrapper>
-			<Logo src={logo} />
+            <Link to='/main'>
+                <Logo src={logo} />
+            </Link>
 		</Wrapper>
     )
 }
