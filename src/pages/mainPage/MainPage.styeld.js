@@ -6,7 +6,7 @@ export const ButtonWrapper = styled.div`
     height: 280px;
     width: 100%;
     gap: 15px;
-    margin-top: 15px;
+    margin-top: 20px;
 `
 
 export const ColumnWrapper = styled.div`

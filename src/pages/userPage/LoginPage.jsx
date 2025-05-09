@@ -6,11 +6,14 @@ import { GreyButton } from '../../components/GreyButton';
 import miniLogo from '../../assets/images/miniLogo.png';
 import emailIcon from '../../assets/icons/user/email.svg';
 import passwordIcon from '../../assets/icons/user/password.svg';
+import mainAxios from '../../apis/mainAxios';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [disable, setDisable] = useState(true);
+    const navigate = useNavigate();
 
     const handleEmail = (event) => {
         setEmail(event.target.value)
@@ -18,6 +21,20 @@ const LoginPage = () => {
 
     const handlePassword = (event) => {
         setPassword(event.target.value)
+    }
+
+    const handleLogin = async () => {
+        try {
+            const response = await mainAxios.post('api/users/login', {
+                email,
+                password,
+            })
+            console.log('로그인 성공', response);
+            localStorage.setItem('csrftoken', response.data.result.token);
+            navigate('/main');
+        } catch(error) {
+            console.log('로그인 실패', error);
+        }
     }
 
     useEffect(() => {
@@ -45,7 +62,7 @@ const LoginPage = () => {
                         onChange={handlePassword}
                     />
                 </S.InputWrapper>
-                <GreenButton text='Login' disabled={disable} />
+                <GreenButton text='Login' disabled={disable} onClick={handleLogin}/>
                 <GreyButton text='Sign in'/>
             </S.Wrapper>            
         </Layout>

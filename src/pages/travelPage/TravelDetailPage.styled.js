@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 export const Title = styled.h1`
-    font-size: 20px;
+    font-size: 22px;
     font-family: ${({ theme }) =>
-    theme.fonts.PretendardMedium["font-family"]};
+    theme.fonts.PretendardSemiBold["font-family"]};
 `
 
 export const Image = styled.img`
@@ -21,7 +21,8 @@ export const Day = styled.h3`
 `
 
 export const PlaceWrapper = styled.div`
-    background-color: #F3F3F3;
+    background-color: #F7F7F7;
+    border: 1px solid #D9D9D9;
     border-radius: 15px;
     width: 100%;
     padding: 15px 20px;

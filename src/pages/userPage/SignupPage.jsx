@@ -6,6 +6,8 @@ import personalCardIcon from '../../assets/icons/user/personalcard.svg';
 import emailIcon from '../../assets/icons/user/email.svg';
 import phoneIcon from '../../assets/icons/user/phone.svg';
 import passwordIcon from '../../assets/icons/user/password.svg';
+import mainAxios from '../../apis/mainAxios';
+import { useNavigate } from 'react-router-dom';
 
 const SignupPage = () => {
     const [name, setName] = useState('');
@@ -13,6 +15,7 @@ const SignupPage = () => {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
     const [disable, setDisable] = useState(true);
+    const navigate = useNavigate();
 
     const handleName = (event) => {
         setName(event.target.value)
@@ -28,6 +31,32 @@ const SignupPage = () => {
 
     const handlePassword = (event) => {
         setPassword(event.target.value)
+    }
+
+    const checkEmail = async () => {
+        try {
+            const response = await mainAxios.get('api/users/check-email', {
+                params: {email},
+            });
+            console.log(response.data);
+        } catch(error) {
+            alert('다른 이메일을 사용해주세요.')
+        }
+    }
+
+    const handleSignup = async () => {
+        try {
+            const response = await mainAxios.post('api/users/signup', {
+                email,
+                password,
+                nickname: name,
+                phonenumber: phoneNumber,
+            })
+            console.log('회원가입 성공', response);
+            navigate('/login');
+        } catch(error) {
+            console.log('회원가입 에러', error);
+        }
     }
 
     useEffect(() => {
@@ -53,12 +82,15 @@ const SignupPage = () => {
                     <S.Icon src={emailIcon}/>
                     <S.Category>Email</S.Category>
                 </S.CategoryWrapper>
-                <S.Input
-                    placeholder='example@naver.com'
-                    value={email}
-                    onChange={handleEmail}
-                    type='email'
-                />
+                <S.EmailInputWrapper>
+                    <S.Input
+                        placeholder='example@naver.com'
+                        value={email}
+                        onChange={handleEmail}
+                        type='email'
+                    />
+                    <S.EmailButton onClick={checkEmail}>Check</S.EmailButton>
+                </S.EmailInputWrapper>
             </S.Container>
             <S.Container>
                 <S.CategoryWrapper>
@@ -84,7 +116,7 @@ const SignupPage = () => {
                     type='password'
                 />
             </S.Container>
-            <GreenButton text='Sign up' disabled={disable} />
+            <GreenButton text='Sign up' disabled={disable} onClick={handleSignup}/>
         </Layout>
     )
 }

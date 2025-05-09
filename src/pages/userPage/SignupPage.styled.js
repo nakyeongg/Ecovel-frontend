@@ -4,7 +4,6 @@ export const Title = styled.h1`
     font-family: ${({ theme }) =>
     theme.fonts.PretendardBold["font-family"]};
     font-size: 22px;
-    margin-top: 75px;
     margin-bottom: 30px;
     width: 100%;
 `
@@ -27,7 +26,6 @@ export const Icon = styled.img`
     width: 24px;
     height: 24px;
     margin-right: 5px;
-
 `
 
 export const Category = styled.h4`
@@ -46,4 +44,17 @@ export const Input = styled.input`
     &::placeholder {
         color: #7F7F7F;
     }
+`
+
+export const EmailInputWrapper = styled.div`
+    display: flex;
+    width: 100%;
+    gap: 10px;
+`
+
+export const EmailButton = styled.button`
+    background-color: #2DCF73;
+    color: #FFFFFF;
+    padding: 0 10px;
+    border-radius: 10px;
 `
