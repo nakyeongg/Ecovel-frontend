@@ -27,12 +27,16 @@ const Wrapper = styled.div`
     border-top-right-radius: 20px;
     height: 65px;
     width: 100%;
+    min-width: 393px;
+    max-width: 420px;
     position: absolute;
     bottom: 0;
     padding: 0 40px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: fixed;
+    bottom: 0;
 `
 
 const Icon = styled.img`
