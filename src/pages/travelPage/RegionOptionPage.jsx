@@ -23,7 +23,9 @@ const RegionOptionPage = () => {
     }
 
     const handleButton = () => {
-        navigate('/travel/district', { state: {  }});
+        const selectedRegionText = regionData.find(region => region.value === selectedRegion)?.text;
+        console.log('selectedRegionText: ', selectedRegionText);
+        navigate('/travel/district', { state: { city: selectedRegionText }});
     }
 
     useEffect(() => {
@@ -34,7 +36,7 @@ const RegionOptionPage = () => {
         <Layout>
             <Header />
             <S.Desc>Please select a city to travel to</S.Desc>
-            <S.Wrapper>
+            <S.RegionWrapper>
                 {regionData.map((region, index) => (
                     <label key={index}>
                         <S.Input
@@ -50,7 +52,7 @@ const RegionOptionPage = () => {
                         </S.Text>
                     </label>
                 ))}
-            </S.Wrapper>
+            </S.RegionWrapper>
             <S.Buttonwrapper>
                 <GreenButton
                     text='Next'

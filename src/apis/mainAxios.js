@@ -8,7 +8,7 @@ mainAxios.interceptors.request.use(
     (config) => {
         const csrftoken = localStorage.getItem('csrftoken');
         if (csrftoken) {
-        config.headers["X-CSRFToken"] = csrftoken;
+        config.headers["Authorization"] = `Bearer ${csrftoken}`;
         }
         return config;
     },

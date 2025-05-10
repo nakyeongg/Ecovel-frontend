@@ -2,15 +2,33 @@ import React, { useState, useEffect } from 'react';
 import * as S from './RegionOptionPage.styled';
 import { Layout } from '../../layout/Layout';
 import { Header } from './../../components/common/Header';
-import { districtData } from './../../constant/districtData';
 import { GreenButton } from './../../components/GreenButton';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import mainAxios from './../../apis/mainAxios';
 
 const DistrictOptionPage = () => {
     
     const [selectedDistrict, setSelectedDistrict] = useState();
     const [disable, setDisable] = useState(true);
     const navigate = useNavigate();
+    const { state } = useLocation();
+    const [selectedRegionText, setSelectedRegionText] = useState(state.city);
+    const [districtData, setDistrictData] = useState([]);
+
+    const getDistricts = async () => {
+        try {
+            const response = await mainAxios.get(`/travel/districts?city=${selectedRegionText}`);
+            console.log('자치구 목록', response.data.result.districts);
+            const districts = response.data.result.districts;
+            const formattedDistrictsData = districts.map((text, index) => ({
+                text: text,
+                value: index,
+            }))
+            setDistrictData(formattedDistrictsData);
+        } catch(error) {
+            console.log('자치구 목록 가져오기 에러', error);
+        }
+    }
 
     const handleDistrict = (event) => {
         const value = Number(event.target.value);
@@ -23,18 +41,26 @@ const DistrictOptionPage = () => {
     }
 
     const handleButton = () => {
-        navigate('/travel/style');
+        const selectedDistrictText = districtData.find(district => district.value === selectedDistrict)?.text;
+        navigate('/travel/style', {state: {
+            selectedRegionText,
+            selectedDistrictText,
+        }});
     }
     
     useEffect(() => {
         setDisable(selectedDistrict === undefined);
     }, [selectedDistrict]);
 
+    useEffect(() => {
+        getDistricts();
+    }, [])
+
     return (
         <Layout>
             <Header />
             <S.Desc>Please select a district to travel to </S.Desc>
-            <S.Wrapper>
+            <S.DistrictWrapper>
                 {districtData.map((district, index) => (
                     <label key={index}>
                         <S.Input
@@ -50,7 +76,7 @@ const DistrictOptionPage = () => {
                         </S.Text>
                     </label>
                 ))}
-            </S.Wrapper>
+            </S.DistrictWrapper>
             <S.Buttonwrapper>
                 <GreenButton
                     text='Next'

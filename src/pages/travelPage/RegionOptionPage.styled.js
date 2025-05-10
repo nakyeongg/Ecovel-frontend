@@ -8,11 +8,20 @@ export const Desc = styled.h4`
     margin: 10px 0 30px 0;
 `
 
-export const Wrapper = styled.div`
+export const RegionWrapper = styled.div`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     width: 100%;
     gap: 10px;
+`
+
+export const DistrictWrapper = styled.div`
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    gap: 10px;
+    font-size: 14px;
+    margin-bottom: 110px;
 `
 
 export const Input = styled.input`
@@ -31,10 +40,15 @@ export const Text = styled.div`
     cursor: pointer;
     font-family: ${({ theme }) =>
     theme.fonts.PretendardMedium["font-family"]};
+    height: 100%;
+    text-align: center;
 `
 
 export const Buttonwrapper = styled.div`
-    width: calc(100% - 50px);
-    position: absolute;
+    width: 100%;
+    min-width: 393px;
+    max-width: 420px;
+    padding: 0 25px;
+    position: fixed;
     bottom: 50px;
 `

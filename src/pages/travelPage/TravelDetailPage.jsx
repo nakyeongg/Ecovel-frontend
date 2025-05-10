@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from './TravelDetailPage.styled';
 import { Layout } from '../../layout/Layout';
 import { Header } from './../../components/common/Header';
@@ -8,9 +8,30 @@ import bus from '../../assets/icons/travel/bus.svg';
 import car from '../../assets/icons/travel/car.svg';
 import bike from '../../assets/icons/travel/bike.svg';
 import walk from '../../assets/icons/travel/walk.svg';
+import { useLocation } from 'react-router-dom';
+import aiAxios2 from './../../apis/aiAxios2';
 
 const TravelDetailPage = () => {
-    const [selectedTransport, setSelectedTransport] = useState(["PublicTransport", "Walking"]);
+    const { state } = useLocation();
+
+    const handleTravelDetail = async () => {
+        try {
+            const response = await aiAxios2.post(' /ai/recommend', {
+                city: state.selectedRegionText,
+                district: state.selectedDistrictText,
+                duration: state.selectedDurationText,
+                style: state.selectedPreferenceText,
+                tranport: state.selectedTransportTexts,
+            });
+            console.log('여행지 생성하기 성공', response);
+        } catch(error) {
+            console.log('여행지 생성하기 실패', error);
+        }
+    }
+
+    useEffect(() => {
+        handleTravelDetail();
+    },[]);
 
     return (
         <Layout>

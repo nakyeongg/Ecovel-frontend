@@ -1,6 +1,6 @@
 export const travelStyleData = [
     {
-        id: 1,
+        id: 0,
         question: 'Travel Duration',
         options: [
             {text: 'Day Trip', value: 0},
@@ -10,7 +10,7 @@ export const travelStyleData = [
         ],
     },
     {
-        id: 2,
+        id: 1,
         question: 'Travel Preference',
         options: [
             {text: 'Nature', value: 0},
@@ -20,7 +20,7 @@ export const travelStyleData = [
         ],
     },
     {
-        id: 3,
+        id: 2,
         question: 'Transportation',
         options: [
             {text: 'Public Transport', value: 0},
