@@ -37,6 +37,10 @@ const LoginPage = () => {
         }
     }
 
+    const clickSignup = () => {
+        navigate('/signup');
+    }
+
     useEffect(() => {
         setDisable(email.trim() === "" || password.trim() === "");
     }, [email, password]);
@@ -63,7 +67,7 @@ const LoginPage = () => {
                     />
                 </S.InputWrapper>
                 <GreenButton text='Login' disabled={disable} onClick={handleLogin}/>
-                <GreyButton text='Sign in'/>
+                <GreyButton text='Sign in' onClick={clickSignup}/>
             </S.Wrapper>            
         </Layout>
     )

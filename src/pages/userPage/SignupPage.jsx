@@ -39,8 +39,13 @@ const SignupPage = () => {
                 params: {email},
             });
             console.log(response.data);
-        } catch(error) {
-            alert('다른 이메일을 사용해주세요.')
+            if (response.data.success) {
+                alert('사용 가능한 이메일입니다.');
+            } else {
+                alert('이미 사용 중인 이메일입니다. 다른 이메일을 사용해주세요.')
+            }
+            } catch(error) {
+            alert('이메일 사용 가능 여부 확인 중 에러가 발생했습니다. 다시 시도해주세요.');
         }
     }
 

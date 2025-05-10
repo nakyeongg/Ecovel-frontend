@@ -23,7 +23,7 @@ const RegionOptionPage = () => {
     }
 
     const handleButton = () => {
-        navigate('/travel/district');
+        navigate('/travel/district', { state: {  }});
     }
 
     useEffect(() => {

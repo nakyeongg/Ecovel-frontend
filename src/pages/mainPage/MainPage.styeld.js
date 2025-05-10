@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export const ButtonWrapper = styled.div`
     display: flex;
-    height: 280px;
+    flex: 1;
     width: 100%;
     gap: 15px;
     margin-top: 20px;
@@ -19,7 +19,7 @@ export const ColumnWrapper = styled.div`
 
 export const LargeButton = styled(Link)`
     width: 50%;
-    height: 100%;
+    flex: 1;
     background-color: #F6F6F6;
     border-radius: 20px;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);

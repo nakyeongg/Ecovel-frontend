@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export const GreyButton = ({ text }) => {
+export const GreyButton = ({ text, onClick }) => {
     return (
-        <Wrapper>
+        <Wrapper onClick={onClick}>
             {text}
         </Wrapper>
     )
