@@ -27,6 +27,7 @@ export const Profile = styled.img`
     border-radius: 50%;
     margin-top: 50px;
     margin-bottom: 10px;
+    object-fit: cover;
 `
 
 export const ProfileButton = styled.input`
