@@ -1,5 +1,21 @@
 import styled from "styled-components";
 
+export const HeaderIconWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 15px;
+`
+
+export const IconButton = styled.button`
+    width: 24px;
+    height: 24px;
+`
+
+export const Icon = styled.img`
+    width: 100%;
+    height: 100%;
+`
+
 export const Title = styled.h1`
     font-size: 22px;
     font-family: ${({ theme }) =>
@@ -9,7 +25,7 @@ export const Title = styled.h1`
 export const Image = styled.img`
     width: 180px;
     height: 180px;
-    margin-top: 15px;
+    margin: 15px 0;
 `
 
 export const Day = styled.h3`
@@ -36,7 +52,6 @@ export const Place = styled.h4`
     font-size: 18px;
     font-family: ${({ theme }) =>
     theme.fonts.PretendardSemiBold["font-family"]};
-    margin-bottom: 10px;
 `
 
 export const InfoWrapper = styled.div`
@@ -49,6 +64,7 @@ export const TransportWrapper = styled.div`
     align-items: center;
     justify-content: flex-start;
     gap: 15px;
+    margin-top: 10px;
 `
 
 export const TimeWrapper = styled.div`

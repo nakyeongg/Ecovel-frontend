@@ -29,11 +29,16 @@ const LoginPage = () => {
                 email,
                 password,
             })
-            console.log('로그인 성공', response);
-            localStorage.setItem('csrftoken', response.data.result.token);
-            navigate('/main');
+            console.log('로그인 요청 성공', response);
+            if (response.data.success) {
+                console.log('로그인 성공', response.data);
+                localStorage.setItem('csrftoken', response.data.result.token);
+                navigate('/main');
+            } else {
+                alert(response.data.error);
+            }
         } catch(error) {
-            console.log('로그인 실패', error);
+            alert('로그인 실패', error);
         }
     }
 
