@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export const GreenButton = ({ text, disabled, onClick }) => {
+export const GreenButton = ({ text, marginBottom=0, disabled, onClick }) => {
     return (
-        <Wrapper disabled={disabled} onClick={onClick}>
+        <Wrapper disabled={disabled} onClick={onClick} marginBottom={marginBottom}>
             {text}
         </Wrapper>
     )
@@ -21,6 +21,7 @@ const Wrapper = styled.button`
     padding: 12px 20px;
     font-family: ${({ theme }) =>
     theme.fonts.PretendardSemiBold["font-family"]};
+    margin-bottom: ${({marginBottom}) => marginBottom}px;
 
     &:disabled {
         background-color: #D9D9D9;

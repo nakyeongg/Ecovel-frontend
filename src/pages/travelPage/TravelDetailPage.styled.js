@@ -47,7 +47,7 @@ export const InfoWrapper = styled.div`
 export const TransportWrapper = styled.div`
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 15px;
 `
 
