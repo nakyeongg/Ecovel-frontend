@@ -15,6 +15,7 @@ import ReportDetailPage from './pages/reportPage/ReportDetailPage';
 import ReportInfoPage from './pages/reportPage/ReportInfoPage';
 import MyPage from './pages/userPage/MyPage';
 import MissionListPage from './pages/missionPage/MissionListPage';
+import MissionMapPage from './pages/missionPage/MissionMapPage';
 
 const App = () => {
     return (
@@ -35,6 +36,7 @@ const App = () => {
                     <Route path='/report/info' element={<ReportInfoPage />} />
                     <Route path='/mypage' element={<MyPage />} />
                     <Route path='/mission/list' element={<MissionListPage />} />
+                    <Route path='/mission/map' element={<MissionMapPage />} />
                 </Routes>
         </BrowserRouter>
     )

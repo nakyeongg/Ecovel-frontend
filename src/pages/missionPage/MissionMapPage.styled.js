@@ -1,18 +1,36 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-export const Guide = styled.h4`
-    font-size: 18px;
-    font-family: ${({ theme }) =>
-    theme.fonts.PretendardMedium["font-family"]};
-    width: 292px;
-    margin-bottom: 20px;
+export const Top = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    z-index: 1;
+`
+
+export const LogoLink = styled(Link)`
+    width: 140px;
+    z-index: 1;
+`
+
+export const Logo = styled.img`
+    width: 140px;
+    padding: 10px;
 `
 
 export const OptionWrapper = styled.div`
     display: flex;
     width: 100%;
-    justify-content: space-around;
     margin-bottom: 20px;
+    z-index: 1;
+    padding: 2px 10px;
+    gap: 10px;
+    overflow-x: auto;
+
+    &::-webkit-scrollbar{
+        display:none;
+    }
 `
 
 export const Input = styled.input`
