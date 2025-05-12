@@ -118,7 +118,7 @@ const TravelDetailPage = () => {
                                     )
                                 }
                             </S.InfoWrapper>
-                            <S.PlaceImage src={place.imageUrl}/>
+                            {/* <S.PlaceImage src={place.imageUrl}/> */}
                         </S.PlaceWrapper>
                     ))}
                 </>

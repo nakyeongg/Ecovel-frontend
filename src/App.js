@@ -36,7 +36,7 @@ const App = () => {
                     <Route path='/report/info' element={<ReportInfoPage />} />
                     <Route path='/mypage' element={<MyPage />} />
                     <Route path='/mission/list' element={<MissionListPage />} />
-                    <Route path='/mission/map' element={<MissionMapPage />} />
+                    <Route path='/mission/map/:id' element={<MissionMapPage />} />
                 </Routes>
         </BrowserRouter>
     )

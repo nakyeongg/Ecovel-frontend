@@ -2,14 +2,16 @@ import React, { useState, useEffect } from 'react';
 import * as S from './MissionMapPage.styled';
 import { MapLayout } from '../../layout/MapLayout';
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api'
-import { mapLocationData } from './../../constant/mapLocationData';
 import logo from '../../assets/images/logo.png';
 import camera from '../../assets/icons/mission/camera.png';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import mainAxios from '../../apis/mainAxios';
 
 const MissionMapPage = () => {
+    const { id } = useParams();
     const [selectedDay, setSelectedDay] = useState();
     const [map, setMap] = useState(null);
+    const [mapLocationData, setMapLocationData] = useState([]);
     
     const days = Array.from(new Set(mapLocationData.map(data => data.day)));
 
@@ -43,6 +45,16 @@ const MissionMapPage = () => {
     const onUnmount = React.useCallback(function callback(map) {
         setMap(null)
     }, []);
+    
+    const handleLocation = async () => {
+        try {
+            const response = await mainAxios.get(`/mission/${id}/locations`);
+            console.log('미션 좌표 요청 성공', response);
+            setMapLocationData(response.data.result);
+        } catch(error) {
+            console.log('미션 좌표 요청 실패', error);
+        }
+    }
 
     useEffect(() => {
         if (map) {
@@ -53,6 +65,10 @@ const MissionMapPage = () => {
             map.fitBounds(bounds);
         }
     }, [map]);
+
+    useEffect(() => {
+        handleLocation();
+    },[]);
 
     return isLoaded ? (
         <MapLayout>
@@ -69,7 +85,7 @@ const MissionMapPage = () => {
                 }}
             >
                 <S.Top>
-                    <S.LogoLink to='/'>
+                    <S.LogoLink to='/main'>
                         <S.Logo src={logo} alt='logo img'/>
                     </S.LogoLink>
                     <S.OptionWrapper>

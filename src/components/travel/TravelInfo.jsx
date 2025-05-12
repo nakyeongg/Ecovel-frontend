@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from "styled-components";
 
-export const TravelInfo = ({ icon, title, hashtag1, hashtag2, hashtag3, hashtag4, image, scheduled=false }) => {
+export const TravelInfo = ({ icon, title, hashtag1, hashtag2, hashtag3, hashtag4, image=null, scheduled=false, onClick }) => {
     return (
         <Wrapper>
             <Left>
                 <TitleWrapper>
                     <Icon src={icon}/>
                     <Title>{title}</Title>
-                    {scheduled && <StartButton>start</StartButton>}
+                    {scheduled && <StartButton onClick={onClick}>start</StartButton>}
                 </TitleWrapper>
                 <HashtagsWrapper>
                     <Hashtag>#{hashtag1}</Hashtag>
@@ -17,7 +17,7 @@ export const TravelInfo = ({ icon, title, hashtag1, hashtag2, hashtag3, hashtag4
                     {hashtag4 && (<Hashtag>#{hashtag4}</Hashtag>)}
                 </HashtagsWrapper>
             </Left>
-            <Image src={image}/>
+            {image && <Image src={image}/>}
         </Wrapper>
     )
 }
