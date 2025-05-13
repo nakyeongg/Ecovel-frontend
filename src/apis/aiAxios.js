@@ -1,8 +1,7 @@
 import axios from "axios";
 
 const aiAxios = axios.create({
-    baseURL: 'http://34.47.125.178:5000',
-    withCredentials: true,
+    baseURL: 'https://www.ecovel.site',
 });
 
 aiAxios.interceptors.request.use(

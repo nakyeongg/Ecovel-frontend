@@ -11,20 +11,23 @@ export const GrowthLog = ({ userId }) => {
     const [growthData, setGrowthData] = useState();
     const [totalCarbonSaved, setTotalCarbonSaved] = useState(125.0);
 
-    const handleGrowthLog = async (userId) => {
+    const handleGrowthLog = async () => {
         try {
+            console.log('성장로그 아이디', userId);
             const response = await mainAxios.get(`/growth/log?userId=${userId}`);
             console.log('성장 로그 요청 성공', response);
-            setGrowthData(response.result);
-            setTotalCarbonSaved(response.result.totalCarbonSaved);
+            // setGrowthData(response.result);
+            // setTotalCarbonSaved(response.result.totalCarbonSaved);
         } catch(error) {
             console.log('성장 로그 요청 실패', error);
         }
     }
 
     useEffect(() => {
-        handleGrowthLog();
-    } ,[])
+        if (userId) {
+            handleGrowthLog();
+        }
+    } ,[userId])
 
     return (
         <Wrapper>

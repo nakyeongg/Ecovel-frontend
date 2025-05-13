@@ -31,8 +31,12 @@ const MainPage = () => {
     return (
         <Layout>
             <Header />
-            <GrowthLog userId={userId}/>
-            <Quiz/>
+            {userId!==undefined && (
+                <>
+                    <GrowthLog userId={userId}/>
+                    <Quiz userId={userId}/>
+                </>
+            )}
             <S.ButtonWrapper>
                 <S.LargeButton to='/travel/region'>
                     <S.Title>Travel</S.Title>
