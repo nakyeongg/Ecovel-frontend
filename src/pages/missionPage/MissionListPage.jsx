@@ -53,10 +53,14 @@ const MissionListPage = () => {
     const handleTravelStart = async (planId) => {
         try {
             if (ongoing.length > 0) {
-                alert('진행 중인 여행이 존재합니다.');
+                alert('Please complete the ongoing trip first');
             } else {
                 const response = await mainAxios.post(`/mission/start?planId=${planId}`);
                 console.log('여행 시작하기 요청 성공', response);
+                await handleOngoing();
+                await handleScheduled();
+                alert('The journey has begun. Please complete the mission!');
+                setSelectedOption(0);
             }
         } catch(error) {
             console.log('여행 시작하기 요청 에러', error);
