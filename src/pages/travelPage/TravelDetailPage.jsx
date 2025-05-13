@@ -32,6 +32,7 @@ const TravelDetailPage = () => {
             setPlanId(response.data.result.planId);
             setTravelData(response.data.result.scheduleList);
             setTransport(response.data.result.transport);
+            setScrapped(response.data.result.isFavorite);
         } catch(error) {
             console.log('여행지 생성하기 실패', error);
         }
@@ -51,7 +52,8 @@ const TravelDetailPage = () => {
         try {
             const response = await mainAxios.delete(`/travel/favorites/${planId}`);
             console.log('스크랩 취소 요청 성공', response);
-            setScrapped(!response.data.success)
+            setScrapped(!response.data.success);
+            await handleScrap();
         } catch(error) {
             console.log('스크랩 취소 요청 실패', error);
         }

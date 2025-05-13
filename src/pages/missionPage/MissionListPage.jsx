@@ -110,9 +110,9 @@ const MissionListPage = () => {
                             key={index}
                             icon={camera}
                             title={data.city}
-                            hashtag1={data.city}
+                            hashtag1={data.district}
                             hashtag2={data.style}
-                            hashtag3={data.transport}
+                            hashtag3={data.transport[0]}
                             // image={data.imageUrl}
                         />
                     </Link>
@@ -123,9 +123,9 @@ const MissionListPage = () => {
                         key={index}
                         icon={camera}
                         title={data.city}
-                        hashtag1={data.city}
+                        hashtag1={data.district}
                         hashtag2={data.style}
-                        hashtag3={data.transport}
+                        hashtag3={data.transport[0]}
                         // image={data.imageUrl}
                         scheduled={true}
                         onClick={() => handleTravelStart(data.planId)}
@@ -137,9 +137,9 @@ const MissionListPage = () => {
                         key={index}
                         icon={camera}
                         title={data.city}
-                        hashtag1={data.city}
+                        hashtag1={data.district}
                         hashtag2={data.style}
-                        hashtag3={data.transport}
+                        hashtag3={data.transport[0]}
                         // image={data.imageUrl}
                     />
                 ))
