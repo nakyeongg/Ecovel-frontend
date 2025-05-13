@@ -16,7 +16,7 @@ export const LogoLink = styled(Link)`
 
 export const Logo = styled.img`
     width: 140px;
-    padding: 10px;
+    margin: 10px;
 `
 
 export const OptionWrapper = styled.div`
