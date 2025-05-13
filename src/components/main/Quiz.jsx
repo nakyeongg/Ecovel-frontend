@@ -1,11 +1,44 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import aiAxios from './../../apis/aiAxios';
+import mainAxios from '../../apis/mainAxios';
 
-
-export const Quiz = () => {
+export const Quiz = ({ userId }) => {
+    const [question, setQuestion] = useState();
+    const [answer, setAnswer] = useState();
     const [isSolved, setIsSolved] = useState(false);
     const [isCorrect, setIsCorrect] = useState(false);
 
+    const handleQuiz = async () => {
+        try {
+            const response = await aiAxios.get('/quiz/today');
+            console.log('퀴즈 조회 요청 성공', response);
+            setQuestion(response.data.question);
+        } catch(error) {
+            console.log('퀴즈 조회 요청 실패', error);
+        }
+    }
+
+    const handleAnswer = async (props) => {
+        if (!userId) {
+            console.error("userId가 없습니다.");
+            return;
+        }
+        try {
+            console.log('props:', props);
+            const response = await mainAxios.post('/quiz/submit', {
+                userId,
+                answer: props,
+            })
+            console.log(response);
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        handleQuiz();
+    }, [])
 
     return (
         <QuizWrapper>
@@ -13,11 +46,11 @@ export const Quiz = () => {
                 <>
                     <ContentWrapper>
                         <Title>Today’s Quiz</Title>
-                        <Content>Solid soap is more eco-friendly than liquid soap when traveling.</Content>                
+                        <Content>{question}</Content>
                     </ContentWrapper>
                     <ButtonWrapper>
-                        <TrueButton>O</TrueButton>
-                        <FalseButton>X</FalseButton>
+                        <TrueButton onClick={() => handleAnswer(true)}>O</TrueButton>
+                        <FalseButton onClick={() => handleAnswer(false)}>X</FalseButton>
                     </ButtonWrapper>                
                 </>
             ) : (
@@ -30,7 +63,6 @@ export const Quiz = () => {
                     <Content>Solid soap is more eco-friendly than liquid soap when traveling.</Content>                
                 </ContentWrapper>
             )}
-
         </QuizWrapper>
     )
 }
@@ -41,6 +73,7 @@ const QuizWrapper = styled.div`
     padding: 15px;
     width: 100%;
     display: flex;
+    justify-content: space-between;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 `
 
