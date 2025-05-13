@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import * as S from "./MainPage.styeld";
 import { Layout } from '../../layout/Layout';
 import { Header } from '../../components/common/Header';
@@ -9,12 +9,29 @@ import travel from '../../assets/icons/main/travel.png';
 import report from '../../assets/icons/main/report.png';
 import mission from '../../assets/icons/main/mission.png';
 import { Link } from 'react-router-dom';
+import mainAxios from './../../apis/mainAxios';
 
 const MainPage = () => {
+    const [userId, setUserId] = useState();
+
+    const handleId = async () => {
+        try {
+            const response = await mainAxios.get('/api/users/me');
+            console.log('유저 정보 요청 성공', response);
+            setUserId(response.data.result.id);
+        } catch(error) {
+            console.log('유저 정보 요청 실패', error);
+        }
+    }
+
+    useEffect(() => {
+        handleId();
+    }, [])
+
     return (
         <Layout>
             <Header />
-            <GrowthLog />
+            <GrowthLog userId={userId}/>
             <Quiz/>
             <S.ButtonWrapper>
                 <S.LargeButton to='/travel/region'>
