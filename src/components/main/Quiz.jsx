@@ -18,10 +18,8 @@ export const Quiz = ({ userId }) => {
             const response = await mainAxios.get(`/quiz/answered?userId=${userId}`);
             console.log('오늘 퀴즈 현황 요청', response);
             setIsSolved(response.data.result.answered);
-            if (response.data.result.answered) {
-                setIsCorrect(response.data.result.correct);
-                setExplanation(response.data.result.explanation);
-            }
+            setIsCorrect(response.data.result.isCorrect);
+            setExplanation(response.data.result.explanation);
         } catch(error) {
             console.log('오늘 퀴즈 현황 요청 실패', error);
         }
@@ -49,9 +47,7 @@ export const Quiz = ({ userId }) => {
                 answer: props,
             })
             console.log('퀴즈 정답 제출 성공', response);
-            setIsCorrect(response.data.result.correct);
-            setExplanation(response.data.result.explanation);
-            setIsSolved(true);
+            await handleSolved();
         } catch(error) {
             console.log(error);
         }
