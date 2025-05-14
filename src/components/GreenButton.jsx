@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export const GreenButton = ({ text, marginBottom=0, disabled, onClick }) => {
     return (
-        <Wrapper disabled={disabled} onClick={onClick} marginBottom={marginBottom}>
+        <Wrapper disabled={disabled} onClick={onClick} $marginBottom={marginBottom}>
             {text}
         </Wrapper>
     )

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import aiAxios from './../../apis/aiAxios';
 import mainAxios from '../../apis/mainAxios';
 
 export const Quiz = ({ userId }) => {
@@ -8,12 +7,31 @@ export const Quiz = ({ userId }) => {
     const [answer, setAnswer] = useState();
     const [isSolved, setIsSolved] = useState(false);
     const [isCorrect, setIsCorrect] = useState(false);
+    const [explanation, setExplanation] = useState();
+
+    const handleSolved = async () => {
+        try {
+            if (!userId) {
+                console.error("userId가 없습니다.");
+                return;
+            }
+            const response = await mainAxios.get(`/quiz/answered?userId=${userId}`);
+            console.log('오늘 퀴즈 현황 요청', response);
+            setIsSolved(response.data.result.answered);
+            if (response.data.result.answered) {
+                setIsCorrect(response.data.result.correct);
+                setExplanation(response.data.result.explanation);
+            }
+        } catch(error) {
+            console.log('오늘 퀴즈 현황 요청 실패', error);
+        }
+    }
 
     const handleQuiz = async () => {
         try {
-            const response = await aiAxios.get('/quiz/today');
+            const response = await mainAxios.get('/quiz/today');
             console.log('퀴즈 조회 요청 성공', response);
-            setQuestion(response.data.question);
+            setQuestion(response.data.result.question);
         } catch(error) {
             console.log('퀴즈 조회 요청 실패', error);
         }
@@ -27,16 +45,20 @@ export const Quiz = ({ userId }) => {
         try {
             console.log('props:', props);
             const response = await mainAxios.post('/quiz/submit', {
-                userId,
+                userId: userId,
                 answer: props,
             })
-            console.log(response);
+            console.log('퀴즈 정답 제출 성공', response);
+            setIsCorrect(response.data.result.correct);
+            setExplanation(response.data.result.explanation);
+            setIsSolved(true);
         } catch(error) {
             console.log(error);
         }
     }
 
     useEffect(() => {
+        handleSolved();
         handleQuiz();
     }, [])
 
@@ -45,7 +67,7 @@ export const Quiz = ({ userId }) => {
             {!isSolved ? (
                 <>
                     <ContentWrapper>
-                        <Title>Today’s Quiz</Title>
+                        <Title>Today's Quiz</Title>
                         <Content>{question}</Content>
                     </ContentWrapper>
                     <ButtonWrapper>
@@ -60,7 +82,7 @@ export const Quiz = ({ userId }) => {
                     ) : (
                         <WrongTitle>Wrong</WrongTitle>
                     )}
-                    <Content>Solid soap is more eco-friendly than liquid soap when traveling.</Content>                
+                    <Content>{explanation}</Content>
                 </ContentWrapper>
             )}
         </QuizWrapper>
