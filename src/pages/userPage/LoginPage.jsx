@@ -11,12 +11,16 @@ import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
+    const [isValidEmail, setIsValidEmail] = useState(false); // 이메일 형식 확인
     const [password, setPassword] = useState('');
     const [disable, setDisable] = useState(true);
     const navigate = useNavigate();
 
     const handleEmail = (event) => {
-        setEmail(event.target.value)
+        const value = event.target.value;
+        setEmail(value);
+        const emailCondition = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        setIsValidEmail(emailCondition.test(value));
     }
 
     const handlePassword = (event) => {
@@ -47,8 +51,8 @@ const LoginPage = () => {
     }
 
     useEffect(() => {
-        setDisable(email.trim() === "" || password.trim() === "");
-    }, [email, password]);
+        setDisable(!(isValidEmail && password.trim() !== ""));
+    }, [isValidEmail, password]);
 
     return (
         <Layout>
