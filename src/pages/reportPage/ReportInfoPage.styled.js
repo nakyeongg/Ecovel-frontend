@@ -8,7 +8,6 @@ export const Title = styled.h1`
 `
 
 export const Wrapper = styled.div`
-    border: 1px solid #D9D9D9;
     background-color: #E0F8EA;
     border-radius: 8px;
     display: flex;
@@ -16,6 +15,7 @@ export const Wrapper = styled.div`
     width: 100%;
     margin-bottom: 10px;
     padding: 20px;
+    border: ${({active}) => (active ? '3px solid #FF0000' : '1px solid #D9D9D9')};
 `
 
 export const Top = styled.div`

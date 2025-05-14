@@ -1,5 +1,10 @@
 export const carbonData = [
     {
+        amount: '0~10kg',
+        effect: 'planting 1-3 trees',
+        purification: "Purifies air for a person for half a day",
+    },
+    {
         amount: '10~30kg',
         effect: 'planting 3-5 trees',
         purification: "Purifies one day's air for a person",

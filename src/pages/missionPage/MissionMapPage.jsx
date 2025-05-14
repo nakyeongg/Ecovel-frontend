@@ -7,7 +7,6 @@ import camera from '../../assets/icons/mission/camera.png';
 import rotate from '../../assets/icons/mission/rotate.png';
 import success from '../../assets/icons/mission/success.png';
 import notice from '../../assets/icons/mission/notice.png';
-import { mapLocationData } from '../../constant/mapLocationData';
 import { ImageModal } from '../../components/mission/ImageModal';
 import { GuideModal } from '../../components/mission/GuideModal';
 import { Link, useParams } from 'react-router-dom';
@@ -18,10 +17,9 @@ const MissionMapPage = () => {
     const { id } = useParams();
     const [selectedDay, setSelectedDay] = useState();
     const [map, setMap] = useState(null);
-    // const [mapLocationData, setMapLocationData] = useState();
+    const [mapLocationData, setMapLocationData] = useState([]);
     const [state, setState] = useState(null); // ongoing, complete, retry, error
     const [image, setImage] = useState();
-    const [name, setName] = useState('user');
     const fileInputRef = useRef();
     const navigate = useNavigate();
     
@@ -54,7 +52,6 @@ const MissionMapPage = () => {
         }
     };
 
-
     const displayedMarker = selectedDay
         ? mapLocationData.filter(location => location.day === selectedDay)
         : mapLocationData;
@@ -81,7 +78,7 @@ const MissionMapPage = () => {
         try {
             const response = await mainAxios.get(`/mission/${id}/locations`);
             console.log('미션 좌표 요청 성공', response);
-            // setMapLocationData(response.data.result);
+            setMapLocationData(response.data.result);
         } catch(error) {
             console.log('미션 좌표 요청 실패', error);
         }

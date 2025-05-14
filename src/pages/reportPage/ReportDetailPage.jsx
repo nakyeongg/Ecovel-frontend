@@ -48,7 +48,7 @@ const ReportDetailPage = () => {
             <S.Title>Carbon Footprint</S.Title>
             <S.RowWrapper>
                 <S.Title>Reduction</S.Title>
-                <Link to='/report/info'>
+                <Link to={`/report/info/${id}`}>
                     <S.Magnifier src={magnifier}/>
                 </Link>
             </S.RowWrapper>
