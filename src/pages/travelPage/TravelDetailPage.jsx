@@ -7,6 +7,7 @@ import bus from '../../assets/icons/travel/bus.svg';
 import car from '../../assets/icons/travel/car.svg';
 import bike from '../../assets/icons/travel/bike.svg';
 import walk from '../../assets/icons/travel/walk.svg';
+import jeju from '../../assets/images/jeju.png';
 import rotate from '../../assets/icons/travel/rotate.svg';
 import emptyHeart from '../../assets/icons/travel/emptyHeart.svg';
 import fullHeart from '../../assets/icons/travel/fullHeart.svg';
@@ -17,7 +18,7 @@ const TravelDetailPage = () => {
     const { state } = useLocation();
     const [travelData, setTravelData] = useState([]);
     const [city, setCity] = useState();
-    const [thumbnail, setThumbnail] = useState();
+    // const [thumbnail, setThumbnail] = useState();
     const [planId, setPlanId] = useState(state);
     const [transport, setTransport] = useState([]);
     const [scrapped, setScrapped] = useState(false);
@@ -28,7 +29,7 @@ const TravelDetailPage = () => {
             const response = await mainAxios.get(`/travel/details/${id}`);
             console.log('여행지 디테일 요청 성공', response);
             setCity(response.data.result.city);
-            setThumbnail(response.data.result.thumbnail);
+            // setThumbnail(response.data.result.thumbnail);
             setPlanId(response.data.result.planId);
             setTravelData(response.data.result.scheduleList);
             setTransport(response.data.result.transport);
@@ -82,9 +83,9 @@ const TravelDetailPage = () => {
                 </S.HeaderIconWrapper>
             </Header>
             <S.Title>{city}</S.Title>
-            <S.Image src={thumbnail} />
+            <S.Image src={jeju} />
             {travelData.map((data, index) => (
-                <>
+                <S.DayWrapper key={index}>
                     <S.Day>{data.day}</S.Day>
                     {data.places.map((place, index) => (
                         <S.PlaceWrapper key={index}>
@@ -120,10 +121,10 @@ const TravelDetailPage = () => {
                                     )
                                 }
                             </S.InfoWrapper>
-                            {/* <S.PlaceImage src={place.imageUrl}/> */}
+                            <S.PlaceImage src={place.imageUrl}/>
                         </S.PlaceWrapper>
                     ))}
-                </>
+                </S.DayWrapper>
             ))}
             <GreenButton text='Go to see carbon savings' $marginBottom={20}/>
         </Layout>

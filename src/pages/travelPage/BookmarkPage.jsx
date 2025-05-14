@@ -4,6 +4,7 @@ import { Layout } from '../../layout/Layout';
 import { Header } from './../../components/common/Header';
 import { TravelInfo } from '../../components/travel/TravelInfo';
 import like from '../../assets/icons/main/like.png';
+import jeju from '../../assets/images/jeju.png';
 import { Link } from 'react-router-dom';
 import mainAxios from './../../apis/mainAxios';
 
@@ -38,7 +39,7 @@ const BookmarkPage = () => {
                         hashtag3={travel.duration}
                         // hashtag4={travel.transport[0]}
                         // image={travel.imageUrl}
-                        image={null}
+                        image={jeju}
                     />
                 </Link>
             ))}

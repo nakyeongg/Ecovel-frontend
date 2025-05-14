@@ -76,6 +76,7 @@ export const HashtagsWrapper = styled.div`
     gap: 5px;
     flex-wrap: wrap;
     margin-right: 5px;
+    color: #545454;
 `
 
 export const Hashtag = styled.p`

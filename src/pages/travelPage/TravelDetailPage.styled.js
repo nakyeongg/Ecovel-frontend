@@ -28,6 +28,10 @@ export const Image = styled.img`
     margin: 15px 0;
 `
 
+export const DayWrapper = styled.div`
+    width: 100%;
+`
+
 export const Day = styled.h3`
     font-size: 20px;
     font-family: ${({ theme }) =>
