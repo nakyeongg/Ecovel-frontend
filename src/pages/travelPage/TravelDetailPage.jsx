@@ -125,7 +125,7 @@ const TravelDetailPage = () => {
                     ))}
                 </>
             ))}
-            <GreenButton text='Go to see carbon savings' marginBottom={20}/>
+            <GreenButton text='Go to see carbon savings' $marginBottom={20}/>
         </Layout>
     )
 }
