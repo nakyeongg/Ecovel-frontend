@@ -57,4 +57,9 @@ export const EmailButton = styled.button`
     color: #FFFFFF;
     padding: 0 10px;
     border-radius: 10px;
+    
+    &:disabled {
+        background-color: #D9D9D9;
+        cursor: default;
+    }
 `

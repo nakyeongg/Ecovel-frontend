@@ -12,25 +12,31 @@ import { useNavigate } from 'react-router-dom';
 const SignupPage = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
+    const [emailAvailable, setEmailAvailable] = useState(false); // 이메일 형식을 지켰는지
+    const [isValidEmail, setIsValidEmail] = useState(false); // 사용 가능한 이메일인지
     const [phoneNumber, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
     const [disable, setDisable] = useState(true);
     const navigate = useNavigate();
 
     const handleName = (event) => {
-        setName(event.target.value)
+        setName(event.target.value);
     }
 
     const handleEmail = (event) => {
-        setEmail(event.target.value)
+        const value = event.target.value;
+        setEmail(value);
+        const emailCondition = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        setIsValidEmail(emailCondition.test(value));
+        setEmailAvailable(false);
     }
 
     const handlePhoneNumber = (event) => {
-        setPhoneNumber(event.target.value)
+        setPhoneNumber(event.target.value);
     }
 
     const handlePassword = (event) => {
-        setPassword(event.target.value)
+        setPassword(event.target.value);
     }
 
     const checkEmail = async () => {
@@ -40,8 +46,10 @@ const SignupPage = () => {
             });
             console.log(response.data);
             if (response.data.success) {
+                setEmailAvailable(true);
                 alert('사용 가능한 이메일입니다.');
             } else {
+                setEmailAvailable(false);
                 alert('이미 사용 중인 이메일입니다. 다른 이메일을 사용해주세요.')
             }
             } catch(error) {
@@ -65,8 +73,8 @@ const SignupPage = () => {
     }
 
     useEffect(() => {
-        setDisable(name.trim() === "" || email.trim() === "" || phoneNumber.trim() === "" || password.trim() === "");
-    }, [name, email, phoneNumber, password]);
+        setDisable(!(name.trim() !== "" && email.trim() !== "" && phoneNumber.trim() !== "" && password.trim() !== "" && emailAvailable));
+    }, [name, email, phoneNumber, password, emailAvailable]);
 
     return (
         <Layout>
@@ -94,7 +102,7 @@ const SignupPage = () => {
                         onChange={handleEmail}
                         type='email'
                     />
-                    <S.EmailButton onClick={checkEmail}>Check</S.EmailButton>
+                    <S.EmailButton onClick={checkEmail} disabled={!isValidEmail}>Check</S.EmailButton>
                 </S.EmailInputWrapper>
             </S.Container>
             <S.Container>
