@@ -1,12 +1,11 @@
 import React from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { reportDetailData } from './../../constant/reportDetailData.js';
 
-const CarbonLineChart = () => {
+const CarbonLineChart = ({ data }) => {
     return (
         <ResponsiveContainer width="100%" height={350}>
             <LineChart
-                data={reportDetailData}
+                data={data}
                 // margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
             >
                 <CartesianGrid strokeDasharray="3 3" />

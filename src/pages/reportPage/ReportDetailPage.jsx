@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from './ReportDetailPage.styled';
 import { Layout } from '../../layout/Layout';
 import { Header } from '../../components/common/Header';
@@ -6,10 +6,26 @@ import CarbonLineChart from '../../components/report/CarbonLineChart';
 import magnifier from '../../assets/icons/report/magnifier.png';
 import tree from '../../assets/icons/report/tree.png';
 import treeLight from '../../assets/icons/report/treeLight.png';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import mainAxios from './../../apis/mainAxios';
 
 const ReportDetailPage = () => {
-    const [ecoScore, setEcoScore] = useState(6);
+    const { id } = useParams();
+    const [ecoScore, setEcoScore] = useState();
+    const [reducedCarbon, setReducedCarbon] = useState(0);
+    const [reportDetailData, setReportDetailData] = useState();
+
+    const handleReportDetail = async () => {
+        try {
+            const response = await mainAxios.get(`/report/${id}`);
+            console.log('리포트 디테일 응답 성공', response);
+            setEcoScore(response.data.result.ecoScore);
+            setReducedCarbon(response.data.result.reducedCarbon);
+            setReportDetailData(response.data.result.details);
+        } catch(error) {
+            console.log('리포트 디테일 응답 에러', error);
+        }
+    }
 
     const renderTreeIcons = () => {
         return Array.from({ length: ecoScore }).map((_, index) => (
@@ -22,6 +38,10 @@ const ReportDetailPage = () => {
         ));
     };
 
+    useEffect(() => {
+        handleReportDetail();
+    },[])
+
     return (
         <Layout>
             <Header />
@@ -33,10 +53,10 @@ const ReportDetailPage = () => {
                 </Link>
             </S.RowWrapper>
             <S.UnitWrapper>
-                <S.ReducedCarbon>8</S.ReducedCarbon>
+                <S.ReducedCarbon>{reducedCarbon}</S.ReducedCarbon>
                 <S.Unit>kg CO₂</S.Unit>
             </S.UnitWrapper>
-            <CarbonLineChart/>
+            <CarbonLineChart data={reportDetailData}/>
             <S.ScoreWrapper>
                 {renderTreeIcons()}
                 {renderTreeLightIcons()}
