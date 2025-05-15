@@ -66,7 +66,7 @@ const CameraIcon = styled.img`
 const Title = styled.h2`
     font-family: ${({ theme }) =>
     theme.fonts.PretendardSemiBold["font-family"]};
-    font-size: 22px;
+    font-size: 20px;
     text-align: center;
     margin-top: 10px;
     height: 62px;

@@ -61,7 +61,6 @@ export const GrowthLog = ({ userId }) => {
 const Wrapper = styled.div`
     height: 150px;
     width: 100%;
-    margin-top: 30px;
     margin-bottom: 20px;
     display: flex;
     align-items: flex-end;
