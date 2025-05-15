@@ -21,6 +21,7 @@ const MissionMapPage = () => {
     const [faceImage, setFaceImage] = useState();
     const [map, setMap] = useState(null);
     const [mapLocationData, setMapLocationData] = useState([]);
+    const [totalDay, setTotalDay] = useState(0) // 총 며칠짜리 여행인지
     const [missionDay, setMissionDay] = useState(0); // 오늘이 며칠째인지
     const [todayMission, setTodayMission] = useState('');
     const [placeName, setPlaceName] = useState();
@@ -30,6 +31,7 @@ const MissionMapPage = () => {
     const fileInputRef = useRef();
     const navigate = useNavigate();
     console.log('오늘 미션 수행함?', completed);
+    console.log('totalDay',totalDay,'missionDay',missionDay);
     const days = Array.from(new Set(mapLocationData.map(data => data.day)));
 
     const handleOption = (event) => {
@@ -91,6 +93,7 @@ const MissionMapPage = () => {
             const response = await mainAxios.get(`/mission/${id}/locations`);
             console.log('미션 좌표 요청 성공', response);
             setMapLocationData(response.data.result);
+            setTotalDay(response.data.result.length);
         } catch(error) {
             console.log('미션 좌표 요청 실패', error);
         }
@@ -177,17 +180,32 @@ const MissionMapPage = () => {
                 formData
             ))
             console.log('미션 사진 인증 요청', response);
-            if (response.data.result.result==='"fail"') {
+            const result = response.data.result.result
+            if (result==='"fail"') {
                 // setImage(null);
                 setState('retry');
             } else {
                 setState('complete');
                 setCompleted(true);
             }
+            // 오늘이 마지막 날이면서 오늘 미션을 완료했는지 여부 확인 필요
+            if (result && (totalDay===missionDay)) {
+                setState('finish')
+            }
         }
         catch(error) {
             console.log('미션 인증 요청 실패', error);
             setCompleted(false);
+        }
+    }
+    // 4. 여행 끝내기
+    const handleFinish = async () => {
+        try {
+            const response = await mainAxios.post(`/mission/complete?planId=${id}`);
+            console.log('여행 끝내기 요청 성공', response);
+            navigate('/main');
+        } catch(error) {
+            console.log('여행 끝내기 요청 실패', error);
         }
     }
 
@@ -216,7 +234,6 @@ const MissionMapPage = () => {
             getImage();
         }
     }, [userId]);
-
 
     return isLoaded ? (
         <>
@@ -311,6 +328,14 @@ const MissionMapPage = () => {
                             setState('ongoing');
                         }
                     }}
+                />
+            )}
+            {state==='finish' && (
+                <GuideModal
+                    icon={notice}
+                    title={`Finish your trip !`}
+                    buttonText='Finish'
+                    onClick={handleFinish}
                 />
             )}
         </>
