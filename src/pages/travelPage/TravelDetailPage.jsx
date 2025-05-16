@@ -12,6 +12,7 @@ import rotate from '../../assets/icons/travel/rotate.svg';
 import emptyHeart from '../../assets/icons/travel/emptyHeart.svg';
 import fullHeart from '../../assets/icons/travel/fullHeart.svg';
 import { useLocation, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import mainAxios from './../../apis/mainAxios';
 
 const TravelDetailPage = () => {
@@ -23,6 +24,7 @@ const TravelDetailPage = () => {
     const [transport, setTransport] = useState([]);
     const [scrapped, setScrapped] = useState(false);
     const { id } = useParams();
+    const navigate = useNavigate();
 
     const handleTravelDetail = async () => {
         try {
@@ -57,6 +59,17 @@ const TravelDetailPage = () => {
             await handleScrap();
         } catch(error) {
             console.log('스크랩 취소 요청 실패', error);
+        }
+    }
+
+    const handleReport = async () => {
+        try {
+            console.log('planId', planId);
+            const response = await mainAxios.get(`/report/${planId}`);
+            console.log('리포트 응답', response);
+            navigate(`/report/detail/${id}`)
+        } catch(error) {
+            console.log('리포트 응답 실패', error);
         }
     }
 
@@ -126,7 +139,7 @@ const TravelDetailPage = () => {
                     ))}
                 </S.DayWrapper>
             ))}
-            <GreenButton text='Go to see carbon savings' $marginBottom={20}/>
+            <GreenButton text='Go to see carbon savings' $marginBottom={20} onClick={handleReport}/>
         </Layout>
     )
 }

@@ -30,8 +30,8 @@ const MissionMapPage = () => {
     const [image, setImage] = useState();
     const fileInputRef = useRef();
     const navigate = useNavigate();
-    console.log('오늘 미션 수행함?', completed);
-    console.log('totalDay',totalDay,'missionDay',missionDay);
+    // console.log('오늘 미션 수행함?', completed);
+    // console.log('totalDay',totalDay,'missionDay',missionDay);
     const days = Array.from(new Set(mapLocationData.map(data => data.day)));
 
     const handleOption = (event) => {
@@ -136,10 +136,13 @@ const MissionMapPage = () => {
             const response = await mainAxios.get(`/mission/${id}/today-status`);
             console.log('오늘 미션 수행 정보', response);
             const completed = response.data.result.completed;
+            console.log('completed????????',completed);
             if (completed) {
+                console.log('오늘 미션 수행 완료');
                 setState('completed');
                 setCompleted(true);
             } else {
+                console.log('오늘 미션 수행하지 않음');
                 setCompleted(false);
             }
         } catch(error) {
@@ -181,9 +184,11 @@ const MissionMapPage = () => {
             ))
             console.log('미션 사진 인증 요청', response);
             const result = response.data.result.result
-            if (result==='"fail"') {
-                // setImage(null);
+            console.log('오늘의 미션 인증 결과!!!!!!!!!!!!!!!!',result);
+            if (result==="fail") {
                 setState('retry');
+                setCompleted(false);
+                setImage(null);
             } else {
                 setState('complete');
                 setCompleted(true);
