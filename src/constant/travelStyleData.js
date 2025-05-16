@@ -24,9 +24,8 @@ export const travelStyleData = [
         question: 'Transportation',
         options: [
             {text: 'Public Transport', value: 0},
-            {text: 'Vehicle', value: 1},
-            {text: 'Bicycle', value: 2},
-            {text: 'Walking', value: 3},
+            {text: 'Bicycle', value: 1},
+            {text: 'Walking', value: 2},
         ],
     },
 ]
