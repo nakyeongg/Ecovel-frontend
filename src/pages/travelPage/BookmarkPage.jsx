@@ -14,10 +14,10 @@ const BookmarkPage = () => {
     const handleScrap = async () => {
         try {
             const response = await mainAxios.get('/travel/favorites');
-            console.log('북마크 가져오기 응답 성공', response);
+            console.log('BookmarkPage success', response);
             setScrapData(response.data.result);
         } catch(error) {
-            console.log('북마크 응답 실패', error);
+            console.log('BookmarkPage error', error);
         }
     }
 

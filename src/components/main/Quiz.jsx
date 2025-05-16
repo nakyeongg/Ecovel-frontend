@@ -12,32 +12,32 @@ export const Quiz = ({ userId }) => {
     const handleSolved = async () => {
         try {
             if (!userId) {
-                console.error("userId가 없습니다.");
+                console.error("userId does not exist.");
                 return;
             }
             const response = await mainAxios.get(`/quiz/answered?userId=${userId}`);
-            console.log('오늘 퀴즈 현황 요청', response);
+            console.log('handleSolved success', response);
             setIsSolved(response.data.result.answered);
             setIsCorrect(response.data.result.isCorrect);
             setExplanation(response.data.result.explanation);
         } catch(error) {
-            console.log('오늘 퀴즈 현황 요청 실패', error);
+            console.log('handleSolved error', error);
         }
     }
 
     const handleQuiz = async () => {
         try {
             const response = await mainAxios.get('/quiz/today');
-            console.log('퀴즈 조회 요청 성공', response);
+            console.log('handleQuiz success', response);
             setQuestion(response.data.result.question);
         } catch(error) {
-            console.log('퀴즈 조회 요청 실패', error);
+            console.log('handleQuiz error', error);
         }
     }
 
     const handleAnswer = async (props) => {
         if (!userId) {
-            console.error("userId가 없습니다.");
+            console.error("userId does not exist.");
             return;
         }
         try {
@@ -46,7 +46,7 @@ export const Quiz = ({ userId }) => {
                 userId: userId,
                 answer: props,
             })
-            console.log('퀴즈 정답 제출 성공', response);
+            console.log('handleAnswer success', response);
             await handleSolved();
         } catch(error) {
             console.log(error);

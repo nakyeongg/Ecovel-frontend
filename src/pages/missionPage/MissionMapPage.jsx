@@ -21,8 +21,8 @@ const MissionMapPage = () => {
     const [faceImage, setFaceImage] = useState();
     const [map, setMap] = useState(null);
     const [mapLocationData, setMapLocationData] = useState([]);
-    const [totalDay, setTotalDay] = useState(0) // 총 며칠짜리 여행인지
-    const [missionDay, setMissionDay] = useState(0); // 오늘이 며칠째인지
+    const [totalDay, setTotalDay] = useState(0) // How many days in total
+    const [missionDay, setMissionDay] = useState(0); // How many days has it been today
     const [todayMission, setTodayMission] = useState('');
     const [placeName, setPlaceName] = useState();
     const [state, setState] = useState(null); // ongoing, complete, retry, error, finish
@@ -30,7 +30,7 @@ const MissionMapPage = () => {
     const [image, setImage] = useState();
     const fileInputRef = useRef();
     const navigate = useNavigate();
-    // console.log('오늘 미션 수행함?', completed);
+    // console.log('today mission', completed);
     // console.log('totalDay',totalDay,'missionDay',missionDay);
     const days = Array.from(new Set(mapLocationData.map(data => data.day)));
 
@@ -91,22 +91,22 @@ const MissionMapPage = () => {
     const handleLocation = async () => {
         try {
             const response = await mainAxios.get(`/mission/${id}/locations`);
-            console.log('미션 좌표 요청 성공', response);
+            console.log('handleLocation success', response);
             setMapLocationData(response.data.result);
             setTotalDay(response.data.result.length);
         } catch(error) {
-            console.log('미션 좌표 요청 실패', error);
+            console.log('handleLocation error', error);
         }
     }
     
     const handleName = async () => {
         try {
             const response = await mainAxios.get('/api/users/me');
-            console.log('유저 정보', response.data.result);
+            console.log('user info', response.data.result);
             setUserId(response.data.result.id);
             console.log('userId', userId);
         } catch(error) {
-            console.log('유저 정보 가져오기 에러', error);
+            console.log('handleName error', error);
         }
     }
 
@@ -114,46 +114,46 @@ const MissionMapPage = () => {
         try {
             console.log('userIduserIduserIduserId', userId);
             const response = await aiAxios.get(`/users/profile-image?userId=${userId}`);
-            console.log('이미지 불러오기', response);
+            console.log('getImage success', response);
             if (response.data.result) {
                 setFaceImage(response.data.result);
             } else {
-                // alert('등록된 얼굴 이미지가 없습니다. 먼저 얼굴을 등록해주세요.');
+                // alert('I don't have a registered face image, please register your face first.');
                 // navigate('/mypage');
             }
         } catch (error) {
-            console.error('이미지 요청 에러:', error);
-            alert('프로필 이미지 로드에 실패했습니다.');
+            console.error('getImage error', error);
+            alert('Failed to load profile image.');
             navigate('/mypage');
         }
     };
 
-    // 미션 수행하는 api 연결
+    // API connection for performing missions
 
-    // 1. 오늘의 미션 수행 여부
+    // 1. today's mission completed or not
     const handleTodayStatus = async () => {
         try {
             const response = await mainAxios.get(`/mission/${id}/today-status`);
-            console.log('오늘 미션 수행 정보', response);
+            console.log('handleTodayStatus success', response);
             const completed = response.data.result.completed;
-            console.log('completed????????',completed);
+            console.log('completed?',completed);
             if (completed) {
-                console.log('오늘 미션 수행 완료');
+                console.log("today's mission completed");
                 setState('completed');
                 setCompleted(true);
             } else {
-                console.log('오늘 미션 수행하지 않음');
+                console.log("today's mission not completed");
                 setCompleted(false);
             }
         } catch(error) {
-            console.log('오늘 미션 수행 정보 에러', error);
+            console.log('handleTodayStatus error', error);
         }
     }
-    // 2. 오늘의 미션 내용
+    // 2. Today's mission
     const handleTodayMission = async () => {
         try {
             const response = await mainAxios.get(`/mission/${id}/today`);
-            console.log('오늘 미션 내용 정보', response);
+            console.log('handleTodayMission success', response);
             setTodayMission(response.data.result.description);
             setPlaceName(response.data.result.placeName);
             const dayString = response.data.result.day; // 'DAY 2'
@@ -161,10 +161,10 @@ const MissionMapPage = () => {
             setMissionDay(dayNumber);
             console.log('missionDay',missionDay);
         } catch(error) {
-            console.log('오늘 미션 내용 에러', error);
+            console.log('handleTodayMission error', error);
         }
     }
-    // 3. 미션 사진 첨부
+    // 3. mission picture
     const handleImage = async (file) => {
         if (faceImage===null) return ;
         const formData = new FormData();
@@ -182,9 +182,9 @@ const MissionMapPage = () => {
             const response = await mainAxios.post(`/mission/${id}/verify`, (
                 formData
             ))
-            console.log('미션 사진 인증 요청', response);
+            console.log('handleImage success', response);
             const result = response.data.result.result
-            console.log('오늘의 미션 인증 결과!!!!!!!!!!!!!!!!',result);
+            console.log("today's mission result",result);
             if (result==="fail") {
                 setState('retry');
                 setCompleted(false);
@@ -193,7 +193,7 @@ const MissionMapPage = () => {
                 setState('complete');
                 setCompleted(true);
             }
-            // 오늘이 마지막 날이면서 오늘 미션을 완료했는지 여부 확인 필요
+            // Today is the last day and we need to see if we completed the mission today
             if (result && (totalDay===missionDay)) {
                 setState('finish')
             }
@@ -203,14 +203,14 @@ const MissionMapPage = () => {
             setCompleted(false);
         }
     }
-    // 4. 여행 끝내기
+    // 4. finish travel
     const handleFinish = async () => {
         try {
             const response = await mainAxios.post(`/mission/complete?planId=${id}`);
-            console.log('여행 끝내기 요청 성공', response);
+            console.log('handleFinish success', response);
             navigate('/main');
         } catch(error) {
-            console.log('여행 끝내기 요청 실패', error);
+            console.log('handleFinish error', error);
         }
     }
 

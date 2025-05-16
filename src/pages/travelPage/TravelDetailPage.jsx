@@ -29,7 +29,7 @@ const TravelDetailPage = () => {
     const handleTravelDetail = async () => {
         try {
             const response = await mainAxios.get(`/travel/details/${id}`);
-            console.log('여행지 디테일 요청 성공', response);
+            console.log('handleTravelDetail success', response);
             setCity(response.data.result.city);
             // setThumbnail(response.data.result.thumbnail);
             setPlanId(response.data.result.planId);
@@ -37,28 +37,28 @@ const TravelDetailPage = () => {
             setTransport(response.data.result.transport);
             setScrapped(response.data.result.isFavorite);
         } catch(error) {
-            console.log('여행지 생성하기 실패', error);
+            console.log('handleTravelDetail error', error);
         }
     }
 
     const handleScrap = async () => {
         try {
             const response = await mainAxios.post(`/travel/favorites?planId=${planId}`);
-            console.log('스크랩 요청 성공', response);
+            console.log('handleScrap success', response);
             setScrapped(response.data.success)
         } catch(error) {
-            console.log('스크랩 요청 실패', error);
+            console.log('handleScrap error', error);
         }
     }
 
     const deleteScrap = async () => {
         try {
             const response = await mainAxios.delete(`/travel/favorites/${planId}`);
-            console.log('스크랩 취소 요청 성공', response);
+            console.log('deleteScrap succcess', response);
             setScrapped(!response.data.success);
             await handleScrap();
         } catch(error) {
-            console.log('스크랩 취소 요청 실패', error);
+            console.log('deleteScrap error', error);
         }
     }
 
@@ -66,10 +66,10 @@ const TravelDetailPage = () => {
         try {
             console.log('planId', planId);
             const response = await mainAxios.get(`/report/${planId}`);
-            console.log('리포트 응답', response);
+            console.log('handleReport success', response);
             navigate(`/report/detail/${id}`)
         } catch(error) {
-            console.log('리포트 응답 실패', error);
+            console.log('handleReport error', error);
         }
     }
 
@@ -109,25 +109,25 @@ const TravelDetailPage = () => {
                                         {transport.includes('Public Transport') && (
                                             <S.TimeWrapper>
                                                 <S.TransportIcon src={bus} />
-                                                <S.Time>{place.publicTime}분</S.Time>
+                                                <S.Time>{place.publicTime}m</S.Time>
                                             </S.TimeWrapper>
                                         )}
                                         {transport.includes('Vehicle') && (
                                             <S.TimeWrapper>
                                                 <S.TransportIcon src={car} />
-                                                <S.Time>{place.carTime}분</S.Time>
+                                                <S.Time>{place.carTime}m</S.Time>
                                             </S.TimeWrapper>
                                         )}
                                         {transport.includes('Bicycle') && (
                                             <S.TimeWrapper>
                                                 <S.TransportIcon src={bike} />
-                                                <S.Time>{place.bicycleTime}분</S.Time>
+                                                <S.Time>{place.bicycleTime}m</S.Time>
                                             </S.TimeWrapper>
                                         )}
                                         {transport.includes('Walking') && (
                                             <S.TimeWrapper>
                                                 <S.TransportIcon src={walk} />
-                                                <S.Time>{place.walkTime}분</S.Time>
+                                                <S.Time>{place.walkTime}m</S.Time>
                                             </S.TimeWrapper>
                                         )}
                                     </S.TransportWrapper>

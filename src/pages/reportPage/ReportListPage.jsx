@@ -13,10 +13,10 @@ const ReportListPage = () => {
     const handleReportList = async () => {
         try {
             const response = await mainAxios.get('/report/list');
-            console.log('리포트 목록 요청 성공', response);
+            console.log('handleReportList success', response);
             setReportListData(response.data.result);
         } catch(error) {
-            console.log('리포트 목록 요청 실패', error);
+            console.log('handleReportList error', error);
         }
     }
 

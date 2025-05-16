@@ -53,13 +53,13 @@ const TravelStyleOptionPage = () => {
                 style: selectedPreferenceText,
                 transport: selectedTransportTexts,
             });
-            console.log('여행지 생성하기 요청 성공', response);
+            console.log('handleButton success', response);
             const planId = response.data.result.planId;
             setLoading(false);
             navigate(`/travel/detail/${planId}`);
         } catch(error) {
             setLoading(false);
-            console.log('여행지 생성 실패');
+            console.log('Failed to create destination');
         }
     }
 

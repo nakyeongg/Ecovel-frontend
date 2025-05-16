@@ -22,7 +22,7 @@ const MissionListPage = () => {
     const handleOngoing = async () => {
         try {
             const response = await mainAxios.get('/mission/ongoing');
-            console.log('진행 중인 여행 목록 요청 성공', response);
+            console.log('handleOngoing success', response);
             setOngoing(response.data.result);
         } catch(error) {
             console.log(error);
@@ -32,8 +32,8 @@ const MissionListPage = () => {
     const handleScheduled = async () => {
         try {
             const response = await mainAxios.get('/mission/scheduled');
-            console.log('예정된 여행 목록 요청 성공', response);
-            console.log('예정된 여행 목록', response.data.result);
+            console.log('handleScheduled success', response);
+            console.log('scheduled travel list', response.data.result);
             setScheduled(response.data.result);
         } catch(error) {
             console.log(error);
@@ -43,7 +43,7 @@ const MissionListPage = () => {
     const handleCompleted = async () => {
         try {
             const response = await mainAxios.get('/mission/completed');
-            console.log('완료된 여행 목록 요청 성공', response);
+            console.log('completed travel list', response);
             setComplete(response.data.result);
         } catch(error) {
             console.log(error);
@@ -52,18 +52,18 @@ const MissionListPage = () => {
 
     const handleTravelStart = async (planId) => {
         try {
-            // if (ongoing.length > 0) {
-            //     // alert('Please complete the ongoing trip first');
-            // } else {
+            if (ongoing.length > 0) {
+                alert('Please complete the ongoing trip first');
+            } else {
                 const response = await mainAxios.post(`/mission/start?planId=${planId}`);
-                console.log('여행 시작하기 요청 성공', response);
+                console.log('handleTravelStart success', response);
                 await handleOngoing();
                 await handleScheduled();
                 alert('The journey has begun. Please complete the mission!');
                 setSelectedOption(0);
-            // }
+            }
         } catch(error) {
-            console.log('여행 시작하기 요청 에러', error);
+            console.log('handleTravelStart error', error);
         }
     }
 

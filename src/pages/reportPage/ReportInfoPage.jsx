@@ -15,10 +15,10 @@ const ReportInfoPage = () => {
     const handleReportDetail = async () => {
         try {
             const response = await mainAxios.get(`/report/${id}`);
-            console.log('리포트 디테일 응답 성공', response);
+            console.log('handleReportDetail success', response);
             setReducedCarbon(response.data.result.reducedCarbon);
         } catch(error) {
-            console.log('리포트 디테일 응답 에러', error);
+            console.log('handleReportDetail error', error);
         }
     }
 

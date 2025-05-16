@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
-    const [isValidEmail, setIsValidEmail] = useState(false); // 이메일 형식 확인
+    const [isValidEmail, setIsValidEmail] = useState(false); // Check email formatting
     const [password, setPassword] = useState('');
     const [disable, setDisable] = useState(true);
     const navigate = useNavigate();
@@ -33,16 +33,16 @@ const LoginPage = () => {
                 email,
                 password,
             })
-            console.log('로그인 요청 성공', response);
+            console.log('handleLogin success', response);
             if (response.data.success) {
-                console.log('로그인 성공', response.data);
+                console.log('login success', response.data);
                 localStorage.setItem('csrftoken', response.data.result.token);
                 navigate('/main');
             } else {
                 alert(response.data.error);
             }
         } catch(error) {
-            alert('로그인 실패', error);
+            alert('login error', error);
         }
     }
 

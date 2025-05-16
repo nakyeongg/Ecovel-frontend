@@ -10,26 +10,26 @@ import mainAxios from './../../apis/mainAxios';
 export const GrowthLog = ({ userId }) => {
     const [totalCarbonSaved, setTotalCarbonSaved] = useState(0);
     const [growthStage, setGrowthStage] = useState('씨앗');
-    const [pointStatus, setPointStatus] = useState(0); // 포인트 현황
-    const [totalPoint, setTotalPoint] = useState(5); // 이번 growthStage에서의 최대 포인트
+    const [pointStatus, setPointStatus] = useState(0); // point state
+    const [totalPoint, setTotalPoint] = useState(5); // Maximum points in this growth stage
 
     const handleGrowthLog = async () => {
         try {
             console.log('userId: ', userId);
             const response = await mainAxios.get(`/growth/log?userId=${userId}`);
-            console.log('성장 로그 요청 성공', response);
+            console.log('handleGrowthLog success', response);
             setTotalCarbonSaved(response.data.result.totalCarbonSaved);
             setGrowthStage(response.data.result.growthStage);
             const tempPointStatus = response.data.result.totalCarbonSaved + response.data.result.totalMissionSuccessCount + response.data.result.totalQuizSuccessCount>=10 ? 10 : response.data.result.totalCarbonSaved + response.data.result.totalMissionSuccessCount + response.data.result.totalQuizSuccessCount;
             setPointStatus(tempPointStatus);
-            console.log('포인트 합계: ', tempPointStatus);
+            console.log('Total points', tempPointStatus);
             if (tempPointStatus < 5) {
                 setTotalPoint(5);
             } else {
                 setTotalPoint(10);
             }
         } catch(error) {
-            console.log('성장 로그 요청 실패', error);
+            console.log('handleGrowthLog error', error);
         }
     }
 

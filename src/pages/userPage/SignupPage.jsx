@@ -12,8 +12,8 @@ import { useNavigate } from 'react-router-dom';
 const SignupPage = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [emailAvailable, setEmailAvailable] = useState(false); // 이메일 형식을 지켰는지
-    const [isValidEmail, setIsValidEmail] = useState(false); // 사용 가능한 이메일인지
+    const [emailAvailable, setEmailAvailable] = useState(false); // email format
+    const [isValidEmail, setIsValidEmail] = useState(false); // email available
     const [phoneNumber, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
     const [disable, setDisable] = useState(true);
@@ -47,13 +47,13 @@ const SignupPage = () => {
             console.log(response.data);
             if (response.data.success) {
                 setEmailAvailable(true);
-                alert('사용 가능한 이메일입니다.');
+                alert(response.data.result);
             } else {
                 setEmailAvailable(false);
-                alert('이미 사용 중인 이메일입니다. 다른 이메일을 사용해주세요.')
+                alert(response.data.error);
             }
             } catch(error) {
-            alert('이메일 사용 가능 여부 확인 중 에러가 발생했습니다. 다시 시도해주세요.');
+            alert('An error occurred while checking email availability, please try again.');
         }
     }
 
@@ -65,10 +65,10 @@ const SignupPage = () => {
                 nickname: name,
                 phonenumber: phoneNumber,
             })
-            console.log('회원가입 성공', response);
+            console.log('handleSignup success', response);
             navigate('/login');
         } catch(error) {
-            console.log('회원가입 에러', error);
+            console.log('handleSignup error', error);
         }
     }
 
@@ -85,7 +85,7 @@ const SignupPage = () => {
                     <S.Category>Name</S.Category>
                 </S.CategoryWrapper>
                 <S.Input
-                    placeholder='Sophia'
+                    placeholder='Ecovel'
                     value={name}
                     onChange={handleName}
                 />

@@ -18,12 +18,12 @@ const MyPage = () => {
     const handleName = async () => {
         try {
             const response = await mainAxios.get('/api/users/me');
-            console.log('유저 정보', response.data.result);
+            console.log('user info', response.data.result);
             setName(response.data.result.nickname);
             setUserId(response.data.result.id);
-            console.log('이름과 id값', name, userId);
+            console.log('name and userId', name, userId);
         } catch(error) {
-            console.log('유저 정보 가져오기 에러', error);
+            console.log('handleUserInfo error', error);
         }
     }
 
@@ -31,10 +31,10 @@ const MyPage = () => {
         try {
             if (userId) {
                 const response = await aiAxios.get(`/users/profile-image?userId=${userId}`);
-                console.log('이미지 불러오기', response.data);
+                console.log('import image', response.data);
                 setImage(response.data.result);
             } else {
-                console.log('등록된 이미지 없음');
+                console.log('No registered image');
             }
         } catch(error) {
             console.log(error);
@@ -53,15 +53,15 @@ const MyPage = () => {
             const response = await aiAxios.post('/users/profile-image', (
                 formData
             ))
-            console.log('얼굴 등록 응답', response);
+            console.log('handleImage success', response);
             if (response.data.success) {
                 setImage(URL.createObjectURL(file));
                 console.log('image',image);
             } else {
-                alert('얼굴 등록에 실패했습니다. 다시 시도해주세요.');
+                alert('Face registration failed, please try again.');
             }
         } catch(error) {
-            console.log('얼굴 등록 에러', error);
+            console.log('handleImage error', error);
         }
     }
 

@@ -18,7 +18,7 @@ const DistrictOptionPage = () => {
     const getDistricts = async () => {
         try {
             const response = await mainAxios.get(`/travel/districts?city=${selectedRegionText}`);
-            console.log('자치구 목록', response.data.result.districts);
+            console.log('districts list', response.data.result.districts);
             const districts = response.data.result.districts;
             const formattedDistrictsData = districts.map((text, index) => ({
                 text: text,
@@ -26,7 +26,7 @@ const DistrictOptionPage = () => {
             }))
             setDistrictData(formattedDistrictsData);
         } catch(error) {
-            console.log('자치구 목록 가져오기 에러', error);
+            console.log('getDistricts error', error);
         }
     }
 
